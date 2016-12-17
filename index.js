@@ -26,7 +26,8 @@ class Deploy {
         this.serverless = serverless;
         this.options = options;
         this.hooks = {
-                'after:deploy:deploy': this.upload,
+                'after:deploy:deploy': () => BbPromise.bind(this)
+                    .then(this.upload),
                 'site:upload:upload': () => BbPromise.bind(this)
                 .then(this.upload)
     };
